@@ -115,8 +115,19 @@ public class LanderController : MonoBehaviour
 
 	}
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out FuelPickup fuelPickup))
+		{
+			fuelAmount += 20f; // increase fuel amount by 20 units
+			Destroy(collision.gameObject);
+            //FuelPickup.DestroySelf // destroy the fuel pickup object
+            Debug.Log("Fuel Picked Up! Current Fuel: " + fuelAmount);
+		}
 
-	private void ConsumeFuel(){
+    }
+
+    private void ConsumeFuel(){
 	    float fuelConsumptionRate = 1f; // fuel consumption rate per second
 		fuelAmount -= fuelConsumptionRate * Time.deltaTime;
 	}
