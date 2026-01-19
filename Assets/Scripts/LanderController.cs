@@ -150,4 +150,17 @@ public class LanderController : MonoBehaviour
 	    float fuelConsumptionRate = 1f; // fuel consumption rate per second
 		fuelAmount -= fuelConsumptionRate * Time.deltaTime;
 	}
+
+	public float GetFuelAmount(){
+		return fuelAmount;
+    }
+
+    public float GetSpeedX(){
+		return landerRigidbody2D.linearVelocityX;
+    }
+
+    public float GetSpeedY()
+    {
+        return landerRigidbody2D.linearVelocityY;
+    }
 }
