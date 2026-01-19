@@ -14,7 +14,8 @@ public class LanderVisuals : MonoBehaviour
 
 		lander.OnUpForce += Lander_OnUpForce;
 		lander.OnLeftForce += Lander_OnLeftForce;
-		lander.OnDownForce += Lander_OnRightForce;
+		lander.OnRightForce += Lander_OnRightForce;
+        lander.OnDownForce += Lander_OnRightForce;
 		lander.OnThrustStop += Lander_OnThrustStop;
 
 		SetEnabledThrusterParticleSystem(leftThrusterParticleSystem, false);
@@ -32,16 +33,16 @@ public class LanderVisuals : MonoBehaviour
 
 	private void Lander_OnLeftForce(object sender, System.EventArgs e)
 	{
-		SetEnabledThrusterParticleSystem(leftThrusterParticleSystem, true);
+		SetEnabledThrusterParticleSystem(leftThrusterParticleSystem, false);
 		SetEnabledThrusterParticleSystem(middleThrusterParticleSystem, false);
-		SetEnabledThrusterParticleSystem(rightThrusterParticleSystem, false);
+		SetEnabledThrusterParticleSystem(rightThrusterParticleSystem, true);
 	}
 
 	private void Lander_OnRightForce(object sender, System.EventArgs e)
 	{
-		SetEnabledThrusterParticleSystem(leftThrusterParticleSystem, false);
+		SetEnabledThrusterParticleSystem(leftThrusterParticleSystem, true);
 		SetEnabledThrusterParticleSystem(middleThrusterParticleSystem, false);
-		SetEnabledThrusterParticleSystem(rightThrusterParticleSystem, true);
+		SetEnabledThrusterParticleSystem(rightThrusterParticleSystem, false);
 	}
 
 	private void Lander_OnThrustStop(object sender, System.EventArgs e)
@@ -53,6 +54,6 @@ public class LanderVisuals : MonoBehaviour
 
 	private void SetEnabledThrusterParticleSystem(ParticleSystem partcleSystem, bool enabled){
 		ParticleSystem.EmissionModule emissionModule = partcleSystem.emission;
-		emissionModule.enabled = true;
+		emissionModule.enabled = enabled;
 	}
 }
