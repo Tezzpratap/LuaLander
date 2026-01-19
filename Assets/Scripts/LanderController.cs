@@ -19,7 +19,8 @@ public class LanderController : MonoBehaviour
 	}
 
     private Rigidbody2D landerRigidbody2D;
-	private float fuelAmount = 10f;
+	private float fuelAmount;
+    private float fuelAmountMax = 10f;
 	
 	public float Thrust = 1000f;
 	public float RotationThrustRight = +500f;
@@ -29,6 +30,7 @@ public class LanderController : MonoBehaviour
 
 	private void Awake(){
 		Instance = this;
+		fuelAmount = fuelAmountMax;
         landerRigidbody2D = GetComponent<Rigidbody2D>();
 	}
 
@@ -133,7 +135,11 @@ public class LanderController : MonoBehaviour
 			Destroy(collision.gameObject);
             //FuelPickup.DestroySelf // destroy the fuel pickup object
             Debug.Log("Fuel Picked Up! Current Fuel: " + fuelAmount);
-		}
+			if (fuelAmount > fuelAmountMax)
+			{
+				fuelAmount = fuelAmountMax;
+            }
+        }
 
         if (collision.gameObject.TryGetComponent(out CoinPickup coinPickup))
         {
@@ -153,6 +159,11 @@ public class LanderController : MonoBehaviour
 
 	public float GetFuelAmount(){
 		return fuelAmount;
+    }
+
+	public float GetFuelAmountNormalized()
+	{ 
+		return fuelAmount / fuelAmountMax;
     }
 
     public float GetSpeedX(){
