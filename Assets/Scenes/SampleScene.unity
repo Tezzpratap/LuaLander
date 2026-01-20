@@ -2745,6 +2745,7 @@ MonoBehaviour:
   leftThrusterParticleSystem: {fileID: 1597360807}
   middleThrusterParticleSystem: {fileID: 627571448}
   rightThrusterParticleSystem: {fileID: 2108736393}
+  landerExplosionVFX: {fileID: 570857052369263401, guid: 6417a7f60d478884997c6c9ac491d28a, type: 3}
 --- !u!1 &1232210189
 GameObject:
   m_ObjectHideFlags: 0
@@ -4796,6 +4797,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   titleTextMesh: {fileID: 643963081}
   statsTextMesh: {fileID: 797061797}
+  nextButton: {fileID: 1686535674}
 --- !u!1 &1439269356
 GameObject:
   m_ObjectHideFlags: 0
