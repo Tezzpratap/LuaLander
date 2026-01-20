@@ -126,7 +126,11 @@ public class LanderController : MonoBehaviour
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (!collision.gameObject.TryGetComponent(out LandingPad landingPad)){
+
+        float relativeVelocityMagnitude = collision.relativeVelocity.magnitude; // to get the value of relative velocity to calculate score
+        float dotVector = Vector2.Dot(Vector2.up, transform.up); // dot product to get the angle of landing
+
+        if (!collision.gameObject.TryGetComponent(out LandingPad landingPad)){
 			Debug.Log("Landed on Terrain");
             OnLanded?.Invoke(this, new OnLandedEventArgs
             {
@@ -139,9 +143,6 @@ public class LanderController : MonoBehaviour
 			SetState(State.GameOver);
             return;
 		}
-
-
-		float relativeVelocityMagnitude = collision.relativeVelocity.magnitude; // to get the value of relative velocity to calculate score
 
 		if (collision.relativeVelocity.magnitude > softLandingSpeed)
 		{
@@ -162,7 +163,7 @@ public class LanderController : MonoBehaviour
 			Debug.Log("Soft landing. Velocity: " + collision.relativeVelocity.magnitude);
 		}*/
 		
-		float dotVector = Vector2.Dot(Vector2.up, transform.up);
+		
 		if (dotVector < maxLandingAngle)
 		{
 			Debug.Log("Landed at a very step angle! Angle dot product: " + dotVector);

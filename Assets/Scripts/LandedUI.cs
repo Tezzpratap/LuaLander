@@ -14,7 +14,7 @@ public class LandedUI : MonoBehaviour
         nextButton.onClick.AddListener(() =>
         {
             SceneManager.LoadScene(0);
-            LanderController.Instance.ResetLander();
+            //LanderController.Instance.ResetLander();
             Hide();
         });
     }
@@ -28,7 +28,7 @@ public class LandedUI : MonoBehaviour
     private void Lander_OnLanded(object sender, LanderController.OnLandedEventArgs e)
     {
         gameObject.SetActive(true);
-        if (e.LandingTypes == LanderController.LandingTypes.Success)
+        if (e.landingTypes == LanderController.LandingTypes.Success)
         {
             titleTextMesh.text = "Successful Landing!";
         }
@@ -37,7 +37,7 @@ public class LandedUI : MonoBehaviour
             titleTextMesh.text = "<color=#ff0000>Landing Failed!</color>";
         }
         statsTextMesh.text = 
-            Mathf.Round(e.landignSpeed * 2f) + "\n" +
+            Mathf.Round(e.landingSpeed * 2f) + "\n" +
             Mathf.Round(e.dotVector * 100f) + "\n" +
             "X" + e.scoreMultiplier + "\n" +
             e.score; 
