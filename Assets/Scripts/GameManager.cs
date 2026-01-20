@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     {
         LanderController.Instance.CoinPickupEvent += Lander_CoinPickupEvent;
         LanderController.Instance.OnLanded += Lander_OnLanded;
+        LanderController.Instance.OnStateChanged += Lander_OnStateChanged;
     }
 
     private void Update()
@@ -31,6 +32,15 @@ public class GameManager : MonoBehaviour
     private void Lander_OnLanded(object sender, LanderController.OnLandedEventArgs e)
     {
         AddScore(e.score);
+    }
+
+    private void Lander_OnStateChanged(object sender, LanderController.OnStateChangedEventArgs e)
+    {
+        if (e.state == LanderController.State.WaitingToStart)
+        {
+            score = 0;
+            time = 0f;
+        }
     }
 
     public void AddScore(int points)
