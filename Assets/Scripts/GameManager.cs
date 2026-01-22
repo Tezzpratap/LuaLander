@@ -48,9 +48,12 @@ public class GameManager : MonoBehaviour
 	}
 
 
-	private void Update()
+    private void Update()
     {
-        time += Time.deltaTime;
+        if (isTimerActive)
+        {
+            time += Time.deltaTime;
+        }
     }
 
     private void LoadCurrentLevel(){
@@ -88,12 +91,11 @@ public class GameManager : MonoBehaviour
     private void Lander_OnStateChanged(object sender, LanderController.OnStateChangedEventArgs e)
     {
         isTimerActive = e.state == LanderController.State.Normal;
-		if (e.state == LanderController.State.WaitingToStart)
+
+        if (e.state == LanderController.State.Normal)
         {
             cinemachineCamera.Target.TrackingTarget = LanderController.Instance.transform;
             CameraZoom.Instance.SetNormalOrthographicSize();
-			score = 0;
-            time = 0f;
         }
     }
 
@@ -126,7 +128,6 @@ public class GameManager : MonoBehaviour
         if (GetGameLevel() == null){
             //No more levels, go to main menu
             SceneLoader.LoadScene(SceneLoader.Scene.GameOverScene);
-            return;
 		}else{
             SceneLoader.LoadScene(SceneLoader.Scene.GameScene);
         }
