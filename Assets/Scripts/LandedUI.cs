@@ -2,24 +2,20 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System;
 
 public class LandedUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI titleTextMesh;
     [SerializeField] private TextMeshProUGUI statsTextMesh;
-    [SerializeField] private TextMeshProUGUI nextButtonTextMesh;
-	[SerializeField] private Button nextButton;
-
-    private Action nextButtonCLickAction;
+    [SerializeField] private Button nextButton;
 
     private void Awake()
     {
         nextButton.onClick.AddListener(() =>
         {
-            nextButtonCLickAction();
-			//LanderController.Instance.ResetLander();
-			Hide();
+            SceneManager.LoadScene(0);
+            //LanderController.Instance.ResetLander();
+            Hide();
         });
     }
 
@@ -35,15 +31,11 @@ public class LandedUI : MonoBehaviour
         if (e.landingTypes == LanderController.LandingTypes.Success)
         {
             titleTextMesh.text = "Successful Landing!";
-            nextButtonCLickAction = GameManager.Instance.GoToNextLevel;
-            nextButtonTextMesh.text = "Next Level";
-		}
+        }
         else
         {
             titleTextMesh.text = "<color=#ff0000>Landing Failed!</color>";
-            nextButtonCLickAction = GameManager.Instance.RetryLevel;
-            nextButtonTextMesh.text = "Retry Level";
-		}
+        }
         statsTextMesh.text = 
             Mathf.Round(e.landingSpeed * 2f) + "\n" +
             Mathf.Round(e.dotVector * 100f) + "\n" +
@@ -56,8 +48,7 @@ public class LandedUI : MonoBehaviour
     private void Show()
     {
         gameObject.SetActive(true);
-		nextButton.Select();
-	}
+    }
 
     private void Hide()
     {

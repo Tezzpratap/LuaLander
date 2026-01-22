@@ -26,8 +26,7 @@ public class StatsUI : MonoBehaviour
         fuelImage.fillAmount = LanderController.Instance.GetFuelAmountNormalized(); 
 
         statsTextMesh.text = 
-            GameManager.Instance.GetLevelNumber() + "\n" +
-			GameManager.Instance.GetScore() + "\n" +
+            GameManager.Instance.GetScore() + "\n" +
             Mathf.Round (GameManager.Instance.GetTime()) + "\n" +
             Mathf.Abs(Mathf.Round(LanderController.Instance.GetSpeedX() * 10f )) + "\n" +
             Mathf.Abs(Mathf.Round(LanderController.Instance.GetSpeedY() * 10f ))+ "\n" +
