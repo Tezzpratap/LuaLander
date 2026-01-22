@@ -1,14 +1,19 @@
+<<<<<<< HEAD
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+=======
+using UnityEngine;
+>>>>>>> abdc6864e9265bb0b95f4ae6b58983f7602a9677
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
+<<<<<<< HEAD
     private static int levelNumber = 1;
 	private static int totalScore= 0;
 
@@ -27,6 +32,10 @@ public class GameManager : MonoBehaviour
 	private int score;
     private float time;
     private bool isTimerActive;
+=======
+    private int score;
+    private float time;
+>>>>>>> abdc6864e9265bb0b95f4ae6b58983f7602a9677
 
     private void Awake()
     {
@@ -34,6 +43,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+<<<<<<< HEAD
         LanderController.Instance.OnCoinPickup += Lander_CoinPickupEvent;
         LanderController.Instance.OnLanded += Lander_OnLanded;
         LanderController.Instance.OnStateChanged += Lander_OnStateChanged;
@@ -49,10 +59,19 @@ public class GameManager : MonoBehaviour
 
 
 	private void Update()
+=======
+        LanderController.Instance.CoinPickupEvent += Lander_CoinPickupEvent;
+        LanderController.Instance.OnLanded += Lander_OnLanded;
+        LanderController.Instance.OnStateChanged += Lander_OnStateChanged;
+    }
+
+    private void Update()
+>>>>>>> abdc6864e9265bb0b95f4ae6b58983f7602a9677
     {
         time += Time.deltaTime;
     }
 
+<<<<<<< HEAD
     private void LoadCurrentLevel(){
         GameLevel gameLevel = GetGameLevel();
 		GameLevel spawnedGameLevel = Instantiate(gameLevel, Vector3.zero, Quaternion.identity);
@@ -75,6 +94,9 @@ public class GameManager : MonoBehaviour
 
 
 	private void Lander_CoinPickupEvent(object sender, System.EventArgs e)
+=======
+    private void Lander_CoinPickupEvent(object sender, System.EventArgs e)
+>>>>>>> abdc6864e9265bb0b95f4ae6b58983f7602a9677
     {
         AddScore(10);
         Debug.Log("Coin Picked Up!");
@@ -87,12 +109,18 @@ public class GameManager : MonoBehaviour
 
     private void Lander_OnStateChanged(object sender, LanderController.OnStateChangedEventArgs e)
     {
+<<<<<<< HEAD
         isTimerActive = e.state == LanderController.State.Normal;
 		if (e.state == LanderController.State.WaitingToStart)
         {
             cinemachineCamera.Target.TrackingTarget = LanderController.Instance.transform;
             CameraZoom.Instance.SetNormalOrthographicSize();
 			score = 0;
+=======
+        if (e.state == LanderController.State.WaitingToStart)
+        {
+            score = 0;
+>>>>>>> abdc6864e9265bb0b95f4ae6b58983f7602a9677
             time = 0f;
         }
     }
@@ -112,6 +140,7 @@ public class GameManager : MonoBehaviour
     {
         return time;
     }
+<<<<<<< HEAD
 
     public int GetTotalScore()
     {
@@ -160,4 +189,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         OnGameUnpaused?.Invoke(this, EventArgs.Empty);
 	}
+=======
+>>>>>>> abdc6864e9265bb0b95f4ae6b58983f7602a9677
 }

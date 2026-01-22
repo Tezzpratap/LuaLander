@@ -7,12 +7,17 @@ public class LanderController : MonoBehaviour
 	public static LanderController Instance { get; private set; }
 	public const float GRAVITY_NORMAL = 0.7f;
 
+<<<<<<< HEAD
 	public event EventHandler OnBeforeForce;
 	public event EventHandler OnUpForce; //event handlers for thruster effects
+=======
+    public event EventHandler OnUpForce; //event handlers for thruster effects
+>>>>>>> abdc6864e9265bb0b95f4ae6b58983f7602a9677
 	public event EventHandler OnLeftForce; 
 	public event EventHandler OnRightForce;
 	public event EventHandler OnDownForce;
 	public event EventHandler OnThrustStop;
+<<<<<<< HEAD
 	//public event EventHandler CoinPickupEvent;
 	public event EventHandler OnCoinPickup;
 	public event EventHandler OnFuelPickup;
@@ -28,6 +33,20 @@ public class LanderController : MonoBehaviour
 		public float scoreMultiplier;
 	}
 
+=======
+	public event EventHandler CoinPickupEvent;
+	public event EventHandler<OnStateChangedEventArgs> OnStateChanged;
+    public event EventHandler<OnLandedEventArgs> OnLanded;
+	public class OnLandedEventArgs : EventArgs
+	{
+		public LandingTypes landingTypes;
+		public int score;
+		public float dotVector;
+		public float landingSpeed;
+		public float scoreMultiplier;
+	}
+
+>>>>>>> abdc6864e9265bb0b95f4ae6b58983f7602a9677
 	public class OnStateChangedEventArgs : EventArgs
 	{
 		public State state;
@@ -79,7 +98,11 @@ public class LanderController : MonoBehaviour
 			default:
 			case State.WaitingToStart:
 
+<<<<<<< HEAD
                 if (GameInput.Instance.IsUpActionPressed() || GameInput.Instance.IsLeftActionPressed() || GameInput.Instance.IsRightActionPressed() || GameInput.Instance.GetMovementInputVector2() != Vector2.zero)
+=======
+                if (Keyboard.current.upArrowKey.isPressed || Keyboard.current.leftArrowKey.isPressed || Keyboard.current.rightArrowKey.isPressed)
+>>>>>>> abdc6864e9265bb0b95f4ae6b58983f7602a9677
                 {
                     ConsumeFuel();
                     landerRigidbody2D.gravityScale = GRAVITY_NORMAL; // enable gravity when input
@@ -90,26 +113,42 @@ public class LanderController : MonoBehaviour
                 break;
 			case State.Normal:
 
+<<<<<<< HEAD
 				float gamepadDeadZone = 0.4f;
 				if ((GameInput.Instance.IsUpActionPressed()) || GameInput.Instance.GetMovementInputVector2().y > gamepadDeadZone)
+=======
+                if ((Keyboard.current.spaceKey.isPressed) || (Keyboard.current.upArrowKey.isPressed))
+>>>>>>> abdc6864e9265bb0b95f4ae6b58983f7602a9677
                 {
                     landerRigidbody2D.AddForce(Thrust * transform.up * Time.deltaTime);
                     //Debug.Log("Thrusting");
                     OnUpForce?.Invoke(this, EventArgs.Empty); //invoke event for thruster effects
                 }
+<<<<<<< HEAD
                 if (GameInput.Instance.IsDownActionPressed())
+=======
+                if (Keyboard.current.downArrowKey.isPressed)
+>>>>>>> abdc6864e9265bb0b95f4ae6b58983f7602a9677
                 {
                     landerRigidbody2D.AddForce(Thrust * -transform.up * Time.deltaTime);
                     //Debug.Log("Revers Thrusting");
                     OnDownForce?.Invoke(this, EventArgs.Empty); //invoke event for thruster effects
                 }
+<<<<<<< HEAD
                 if (GameInput.Instance.IsLeftActionPressed() || GameInput.Instance.GetMovementInputVector2().x < -gamepadDeadZone)
+=======
+                if (Keyboard.current.leftArrowKey.isPressed)
+>>>>>>> abdc6864e9265bb0b95f4ae6b58983f7602a9677
                 {
                     landerRigidbody2D.AddTorque(RotationThrustLeft * Time.deltaTime);
                     //Debug.Log("Left Left");
                     OnLeftForce?.Invoke(this, EventArgs.Empty); //invoke event for thruster effects
                 }
+<<<<<<< HEAD
                 if (GameInput.Instance.IsRightActionPressed() || GameInput.Instance.GetMovementInputVector2().x > gamepadDeadZone)
+=======
+                if (Keyboard.current.rightArrowKey.isPressed)
+>>>>>>> abdc6864e9265bb0b95f4ae6b58983f7602a9677
                 {
                     landerRigidbody2D.AddTorque(RotationThrustRight * Time.deltaTime);
                     //Debug.Log("Rotating Right");
@@ -231,6 +270,7 @@ public class LanderController : MonoBehaviour
 			{
 				fuelAmount = fuelAmountMax;
             }
+<<<<<<< HEAD
 			OnFuelPickup?.Invoke(this, EventArgs.Empty);
 			fuelPickup.DestroySelf();
 		}
@@ -239,6 +279,14 @@ public class LanderController : MonoBehaviour
         {
             fuelAmount += 20f; // increase fuel amount by 20 units
             OnCoinPickup?.Invoke(this, EventArgs.Empty);
+=======
+        }
+
+        if (collision.gameObject.TryGetComponent(out CoinPickup coinPickup))
+        {
+            fuelAmount += 20f; // increase fuel amount by 20 units
+            CoinPickupEvent?.Invoke(this, EventArgs.Empty);
+>>>>>>> abdc6864e9265bb0b95f4ae6b58983f7602a9677
             Destroy(collision.gameObject);
             //CoinPickup.DestroySelf // destroy the fuel pickup object
             Debug.Log("Fuel Picked Up! Current Fuel: " + fuelAmount);
